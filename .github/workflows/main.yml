@@ -18,10 +18,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: buid image
         run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) .
       - name: login dockerhub
         run: docker login -u $(echo $REGISTRY) -p ${{ secrets.DOCKERHUBTOKEN }}
       - name: push image to the repository
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+  
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWD }}
+          port: 22
+          envs: IMAGE_NAME,REGISTRY,GITHUB_SHA,LOGS_PATH,ENV_FILE_PATH,CONTAINER_NAME
+          script: |
+            cd $HOME/app/GitHubActions
+            git pull
+
+            docker-compose down
+            docker-compose up -d
