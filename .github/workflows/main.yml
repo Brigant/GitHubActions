@@ -39,9 +39,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWD }}
           port: 22
-          envs: IMAGE_NAME,REGISTRY,GITHUB_SHA,LOGS_PATH,ENV_FILE_PATH,CONTAINER_NAME
           script: |
-            whoami
+            cd /app/GitHubActions
             git pull
             docker-compose down
             docker-compose up -d
