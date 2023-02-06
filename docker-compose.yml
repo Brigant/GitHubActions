@@ -1,0 +1,13 @@
+# docker-compose.yml 
+version: '3.8'
+
+services:
+    testci:
+      build: jedis/testci:latest
+      container_name: testci
+      restart: unless-stopped
+      ports:
+        - 8080:8080
+
+volumes:
+  octagon-db:
