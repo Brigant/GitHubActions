@@ -41,7 +41,7 @@ jobs:
           port: 22
           envs: IMAGE_NAME,REGISTRY,GITHUB_SHA,LOGS_PATH,ENV_FILE_PATH,CONTAINER_NAME
           script: |
-            cd /home/${{ secrets.SERVER_USER }}/app/GitHubActions
+            cd /home/admik/app/GitHubActions
             git pull
 
             docker-compose down
