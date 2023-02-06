@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWD }}
           port: 22
           script: |
-            cd /app/GitHubActions
+            whoami
             git pull
             docker-compose down
             docker-compose up -d
