@@ -41,8 +41,7 @@ jobs:
           port: 22
           envs: IMAGE_NAME,REGISTRY,GITHUB_SHA,LOGS_PATH,ENV_FILE_PATH,CONTAINER_NAME
           script: |
-            cd /home/admik/app/GitHubActions
+            whoami
             git pull
-
             docker-compose down
             docker-compose up -d
