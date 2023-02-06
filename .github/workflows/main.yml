@@ -41,4 +41,9 @@ jobs:
           port: 22
           script: |
             whoami
+            cd /app/
             ls -la
+            git pull
+            docker-compose down
+            docker-compose up -d
+
