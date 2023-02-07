@@ -1,5 +1,5 @@
 # docker-compose.yml 
-version: '3.8'
+version: '3'
 
 services:
     testci:
@@ -7,7 +7,7 @@ services:
       container_name: testci
       restart: unless-stopped
       ports:
-        - 8081:8080
+        - 8080:8080
 
 volumes:
   octagon-db:
