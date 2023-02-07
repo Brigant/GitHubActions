@@ -25,6 +25,8 @@ jobs:
         run: docker login -u $(echo $REGISTRY) -p ${{ secrets.DOCKERHUBTOKEN }}
       - name: push image to the repository
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
+      - name: push latest image to dockerhub
+        run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):latest
   
   deploy:
     runs-on: ubuntu-latest
@@ -34,7 +36,7 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v3
-      - name: Deploy to Digital Ocean droplet via SSH action
+      - name: Deploy to server
         uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
